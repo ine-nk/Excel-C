@@ -11,9 +11,34 @@ Webpack (imports/exports)
 
 Git
     слежение за версионностью системы
+    ==================
+    …or create a new repository on the command line
+    echo "# Excel-C" >> README.md
+    git init
+    git add README.md
+    git commit -m "first commit"
+    git branch -M master
+    git remote add origin https://github.com/ine-nk/Excel-C.git
+    git push -u origin master
+
 
 
 Production
 
 Developvent
 
+==================
+
+1.
+…or create a new repository on the command line
+echo "# Excel-C" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M master
+git remote add origin https://github.com/ine-nk/Excel-C.git
+git push -u origin master
+2. Создание ветки для webpack
+    git checkout -b "webpack" //! двойные кавычки обязательны
+
+3. создание в корне webpack.config.js
