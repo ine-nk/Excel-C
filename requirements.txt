@@ -42,3 +42,100 @@ git push -u origin master
     git checkout -b "webpack" //! двойные кавычки обязательны
 
 3. создание в корне webpack.config.js
+    и заливаем все созданное в ветку webpack
+    git push -u origin webpack
+
+4. webpack
+    npm -v - проверяем есть ли установленный  nodejs  и npm
+    node -v - проверка версии nodejs
+    npm init
+    после инициализации конфига - добавляем его в git  - >
+        git add package.json
+     в конфиг добавляем "private": true  //- не хотим публиковать данный проект (этот репозиторий не будет опубликован)
+
+    - package.json нужен для того чтобы вести список зависимостей!!! для того чтобы через систему контроля версий не перекиывать большое количество файлов
+    - устанавлием webpack:
+     npm install webpack webpack-cli --save-dev
+
+    - webpack.config.js -> из него делаем экспорт объекта (module.exports= {} )
+
+    -добавляем скипты в package.json:
+
+    -npm install --save-dev clean-webpack-plugin // для очистки папок с плагином
+
+    - CopyWebpackPlugin используется для переноса Favicon из src в dist (или еще каких опрелделенных файлов)
+    - MiniCssExtractPlugin для того чтобы выносить CSS из JS в отдельный файл ->
+        npm install --save-dev mini-css-extract-plugin
+
+     - добавляем массив расширений в секцию resolve {}  и добавляем алиасы для укорочения длины пути к файлу
+
+        resolve: {
+            extensions: ['.js'], // по умолчанию грузим файлы с расш. js
+            alias  {'@': path.resolve(__dirname, 'src'),
+                    '@core': path.resolve(__dirname, 'src/core'),
+                           }
+
+            }
+     - добавление лоадеров - sass/scss
+        npm install sass-loader sass  --save-dev
+        npm i -D css-loader
+     - устанавливаем babel-loader и babel@core
+        npm install --save-dev babel-loader @babel/core
+     - устанавливаем пакет с преднастройками ( самые последние фишки которые поддерживаются)
+        npm install @babel/preset-env --save-dev
+
+    надо определить в каком режиме сборки сейчас находимся -
+        -через системную переменню process.env.NODE_ENV - чтобы работать с этой переменой
+            надо установить пакет npm i -D cross-env  - он определяет в какой OS
+            выполняется программа и в зав-ти от этого правильно выставляет переменные
+            окружения - при старте в режиме разработки устанавливаем пеерменную в
+            development
+            - при старте в проде - переменную записываем production:
+             в package.json в скрипты для start  и prod добавляем
+             "start": "cross-env NODE_ENV=development
+              "build": "cross-env NODE_ENV=production
+        - для минимизации HTML в режиме prod - в настройках вебпака плагина
+        HTMLWebpackPlugin есть ключ -
+            minify:{
+                removeComments: true,  // удаление комментариев
+                 collapsWhitespace: true // удаление пробелов
+            }
+        - для режима продакт - не нужен хеш - поэтому будем формировать
+            расширение формируемого файла в зав-ти от режима разработки.
+            через функцию которая меняет расширение в з-ти от режима
+            const filename = ext => isDev ? `bundle.${ext}`
+                                          : `bundle.[hash].${ext}`
+            и далее в конфиге используем эту функцию  с нужным параметром
+            npm i -D cross-env ( этот пакет показывает на какой системе находимся и
+                                    переменные окружения)
+        - подключение source-map - показвает где находится источник
+        после resolve..... ставим
+        devtool: isDev ? 'source-map': false ,
+
+        - npm install webpack-dev-server --save-dev - установка сервера разработки
+        для того чтобы не создавалась статическая папка dist надо :
+        1. в скрипте start файла package.json-
+        "start": "cross-env NODE_ENV=development webpack" на
+        "start": "cross-env NODE_ENV=development webpack-dev-server"
+        2. в webpack.config.js - поле devServer
+
+        - npm install --save @babel/polyfill добавление полифилов для корректной работы генераторов асинхронных запросов  - async await
+
+        и добавляем в конфигурацию вебпака
+
+        // ??? npm install --save classlist.js
+
+        - ESLint добавляется если находимся в режиме веб разработки
+        npm i eslint eslint-loader babel-eslint -D
+        для настройки лучше использовать готовые пресеты : например
+            eslintgoogle ->
+            Installation:
+            $ npm install --save-dev  eslint-config-google
+
+            "extends": ["eslint:recommended", "google"],
+
+
+
+
+
+
