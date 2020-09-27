@@ -1,0 +1,25 @@
+// описываем базовую конфигурацию для eslint
+
+{
+  "parser": "babel-eslint",
+  // поле env  - для обозначения где применям наш код
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    //тут описываем свои правила для eslint
+    "semi": "off",
+    "arrow-parens": "off",
+    "max-len": "off",
+    "comma-dangle": "off",
+    "require-jsdoc": "off",
+    "linebreak-style": "off",
+    "eol-last": "off",
+    "indent": "off"
+  },
+  "extends": [
+    "eslint:recommended", "google"
+  ]
+}
