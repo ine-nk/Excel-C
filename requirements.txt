@@ -133,7 +133,12 @@ git push -u origin master
             $ npm install --save-dev  eslint-config-google
 
             "extends": ["eslint:recommended", "google"],
+        - для верстки делаем в git-e новую ветку :
+            git checkout -b "css-layout"
 
+        - npm install normalize.css
+        - добавим шрифт roboto :
+            @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 
 
